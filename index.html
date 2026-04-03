@@ -1,0 +1,318 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.mhwrap{max-width:560px;margin:0 auto;padding:1rem 0;font-family:var(--font-sans)}
+.mhlogo{display:flex;align-items:center;gap:8px;margin-bottom:1.5rem}
+.mhmark{width:26px;height:26px;background:#d32f2f;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff}
+.mhtext{font-size:13px;font-weight:500;color:var(--color-text-primary)}
+.mhsub{font-size:11px;color:var(--color-text-tertiary)}
+.mhprow{display:flex;align-items:center;gap:10px;margin-bottom:1.25rem;font-size:12px;color:var(--color-text-tertiary)}
+.mhptrack{flex:1;height:2px;background:var(--color-border-tertiary);border-radius:2px;overflow:hidden}
+.mhpfill{height:100%;background:var(--color-text-secondary);transition:width .4s ease}
+.mhslbl{font-size:10px;font-weight:500;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px}
+.mhcard{background:var(--color-background-primary);border-radius:var(--border-radius-lg);border:.5px solid var(--color-border-tertiary);overflow:hidden}
+.mhchd{padding:14px 16px;border-bottom:.5px solid var(--color-border-tertiary)}
+.mhcbd{padding:16px}
+.mhmeta{font-size:12px;color:var(--color-text-secondary)}
+.mhts{font-size:11px;color:var(--color-text-tertiary)}
+.mhsubj{font-size:14px;font-weight:500;color:var(--color-text-primary);margin-top:8px}
+.mhbtxt{font-size:13px;color:var(--color-text-secondary);margin:0 0 14px;line-height:1.6}
+.mhctabox{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:16px;margin:4px 0 14px;border:.5px solid var(--color-border-tertiary);text-align:center}
+.mhctabox p{font-size:12px;color:var(--color-text-secondary);margin-bottom:12px;line-height:1.5}
+.mhbcta{padding:9px 22px;font-size:13px;font-weight:500;background:var(--color-text-primary);color:var(--color-background-primary);border:none;border-radius:var(--border-radius-md);cursor:pointer;font-family:var(--font-sans)}
+.mhtoken{font-size:10px;color:var(--color-text-tertiary);margin-top:10px;font-family:var(--font-mono)}
+.mhweburl{font-size:10px;color:var(--color-text-tertiary);font-family:var(--font-mono);margin-bottom:14px}
+.mhbanner{background:var(--color-background-info);border-radius:var(--border-radius-md);padding:9px 12px;margin-bottom:14px;display:flex;gap:8px;align-items:flex-start}
+.mhbdot{width:7px;height:7px;border-radius:50%;background:var(--color-text-info);flex-shrink:0;margin-top:3px}
+.mhbtxt2{font-size:12px;color:var(--color-text-info);line-height:1.5}
+.mhseclbl{font-size:10px;font-weight:500;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px}
+.mhcc{border:.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);margin-bottom:8px;overflow:hidden;transition:border-color .15s}
+.mhcc.mhsel{border-color:var(--color-text-primary)}
+.mhcchd{display:flex;align-items:center;gap:10px;padding:10px 12px;cursor:pointer;background:var(--color-background-primary)}
+.mhcchd:hover{background:var(--color-background-secondary)}
+.mhchk{width:16px;height:16px;border-radius:3px;border:1.5px solid var(--color-border-secondary);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.mhchk.mhon{background:var(--color-text-primary);border-color:var(--color-text-primary)}
+.mhchk.mhon::after{content:'';display:block;width:4px;height:8px;border:2px solid var(--color-background-primary);border-top:none;border-left:none;transform:rotate(45deg) translateY(-1px)}
+.mhci{flex:1}
+.mhcname{font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:1px}
+.mhcmeta{font-size:11px;color:var(--color-text-tertiary)}
+.mhccbd{padding:0 12px 12px;border-top:.5px solid var(--color-border-tertiary);background:var(--color-background-secondary)}
+.mhmi{display:flex;gap:8px;align-items:flex-start;padding:9px 0;border-bottom:.5px solid var(--color-border-tertiary)}
+.mhmi:last-of-type{border-bottom:none}
+.mhbthumb{width:32px;height:42px;background:var(--color-border-tertiary);border-radius:3px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.mhminfo{flex:1}
+.mhmt{font-size:12px;font-weight:500;color:var(--color-text-primary);margin-bottom:2px}
+.mhma{font-size:11px;color:var(--color-text-secondary);margin-bottom:2px}
+.mhisbn{font-size:10px;color:var(--color-text-tertiary)}
+.mhmacts{display:flex;gap:5px;margin-top:5px}
+.mhbdg{font-size:10px;font-weight:500;padding:2px 7px;border-radius:20px;white-space:nowrap;flex-shrink:0}
+.mhbprev{background:#eef0fb;color:#3d4db7}
+.mhbnew{background:#fef3e2;color:#92520a}
+.mhaddtxt{font-size:11px;color:var(--color-text-tertiary);background:var(--color-background-primary);border:.5px dashed var(--color-border-secondary);border-radius:var(--border-radius-md);padding:5px 9px;cursor:pointer;font-family:var(--font-sans);margin-top:8px;display:block;width:100%;text-align:left}
+.mhaddtxt:hover{background:var(--color-background-secondary)}
+.mhspanel{background:var(--color-background-tertiary);border-radius:var(--border-radius-md);padding:10px;margin-top:6px;border:.5px solid var(--color-border-tertiary)}
+.mhsinput{width:100%;padding:7px 10px;font-size:12px;border-radius:var(--border-radius-md);border:.5px solid var(--color-border-secondary);outline:none;font-family:var(--font-sans);color:var(--color-text-primary);background:var(--color-background-primary)}
+.mhrlbl{font-size:10px;font-weight:500;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.07em;margin:8px 0 5px}
+.mhrrow{display:flex;justify-content:space-between;align-items:center;padding:7px 9px;border-radius:var(--border-radius-md);border:.5px solid var(--color-border-tertiary);margin-bottom:5px;cursor:pointer;background:var(--color-background-primary)}
+.mhrrow:hover{background:var(--color-background-secondary)}
+.mhrt{font-size:12px;font-weight:500;color:var(--color-text-primary);margin-bottom:1px}
+.mhrm{font-size:10px;color:var(--color-text-secondary)}
+.mhempty{padding:12px;text-align:center;border:.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);background:var(--color-background-primary);margin-top:6px}
+.mhempty p:first-child{font-size:12px;color:var(--color-text-secondary);margin-bottom:3px}
+.mhempty p:last-child{font-size:11px;color:var(--color-text-tertiary)}
+.mhaddccbtn{width:100%;padding:9px;font-size:12px;color:var(--color-text-tertiary);background:var(--color-background-secondary);border:.5px dashed var(--color-border-secondary);border-radius:var(--border-radius-md);cursor:pointer;font-family:var(--font-sans);margin-bottom:14px;text-align:left}
+.mhaddccbtn:hover{background:var(--color-background-tertiary)}
+.mhncform{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:12px;margin-bottom:8px;border:.5px solid var(--color-border-tertiary)}
+.mhflbl{font-size:11px;color:var(--color-text-secondary);margin-bottom:3px;display:block}
+.mhfinput{width:100%;padding:7px 10px;font-size:12px;border-radius:var(--border-radius-md);border:.5px solid var(--color-border-secondary);outline:none;font-family:var(--font-sans);color:var(--color-text-primary);background:var(--color-background-primary);margin-bottom:8px}
+.mhbtnrow{display:flex;gap:8px;margin-top:14px}
+.mhbprim{padding:9px 20px;font-size:13px;font-weight:500;background:var(--color-text-primary);color:var(--color-background-primary);border:none;border-radius:var(--border-radius-md);cursor:pointer;font-family:var(--font-sans)}
+.mhbprim:disabled{opacity:.35;cursor:not-allowed}
+.mhbghost{padding:7px 12px;font-size:11px;background:var(--color-background-primary);color:var(--color-text-secondary);border:.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);cursor:pointer;font-family:var(--font-sans)}
+.mhbghost:hover{background:var(--color-background-secondary)}
+.mhbrm{padding:3px 7px;font-size:10px;background:var(--color-background-danger);color:var(--color-text-danger);border:.5px solid var(--color-border-danger);border-radius:3px;cursor:pointer;font-family:var(--font-sans)}
+.mhftxt{font-size:11px;color:var(--color-text-tertiary);line-height:1.6;margin-top:12px}
+.mhnotice{font-size:12px;color:var(--color-text-success);background:var(--color-background-success);padding:7px 10px;border-radius:var(--border-radius-md);margin-bottom:7px}
+.mhnewtag{display:inline-block;font-size:9px;font-weight:500;color:#92520a;background:#fef3e2;padding:1px 5px;border-radius:3px;margin-left:5px;vertical-align:middle}
+.mhconfctr{padding:28px 20px;text-align:center}
+.mhchkcirc{width:40px;height:40px;border-radius:50%;background:var(--color-background-success);display:flex;align-items:center;justify-content:center;margin:0 auto 14px}
+.mhconfh{font-size:16px;font-weight:500;color:var(--color-text-primary);margin-bottom:5px}
+.mhconfs{font-size:12px;color:var(--color-text-tertiary);margin-bottom:20px}
+.mhconfblk{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:12px;text-align:left;margin-bottom:10px;border:.5px solid var(--color-border-tertiary)}
+.mhconfcn{font-size:12px;font-weight:500;color:var(--color-text-primary);margin-bottom:7px;padding-bottom:7px;border-bottom:.5px solid var(--color-border-tertiary)}
+.mhconfmi{display:flex;gap:8px;align-items:flex-start;padding:5px 0;border-bottom:.5px solid var(--color-border-tertiary)}
+.mhconfmi:last-child{border-bottom:none;padding-bottom:0}
+.mhmgrid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.mhml{font-size:10px;color:var(--color-text-tertiary);margin-bottom:1px}
+.mhmv{font-size:12px;color:var(--color-text-primary);font-weight:500}
+.mhconfftr{font-size:12px;color:var(--color-text-tertiary);line-height:1.6}
+</style>
+
+<div class="mhwrap">
+<div class="mhlogo">
+  <div class="mhmark">MH</div>
+  <div><div class="mhtext">McGraw Hill</div><div class="mhsub">Course Material Adoption</div></div>
+</div>
+<div class="mhprow">
+  <span id="mhslbl">Step 1 of 3 — Email</span>
+  <div class="mhptrack"><div class="mhpfill" id="mhpbar" style="width:33%"></div></div>
+</div>
+
+<div id="mhve">
+  <div class="mhslbl">What Dr. Chen sees in her inbox</div>
+  <div class="mhcard">
+    <div class="mhchd">
+      <div style="display:flex;justify-content:space-between;margin-bottom:3px">
+        <span class="mhmeta">From: McGraw Hill Adoptions &lt;adoptions@mheducation.com&gt;</span>
+        <span class="mhts">Mar 28 · 8:04 AM</span>
+      </div>
+      <div class="mhmeta">To: sarah.chen@stateuniversity.edu</div>
+      <div class="mhsubj">Action needed: confirm your Fall 2026 course materials</div>
+    </div>
+    <div class="mhcbd">
+      <p class="mhbtxt">Hi Dr. Chen,</p>
+      <p class="mhbtxt">Fall 2026 adoptions are due by <strong style="color:var(--color-text-primary)">April 18, 2026</strong>. We found courses from your McGraw Hill Connect history that may be continuing this fall.</p>
+      <p class="mhbtxt">Click below to review your prior courses, confirm which are running again, and update your materials if anything has changed. It takes about two minutes.</p>
+      <div class="mhctabox">
+        <p>Your submission goes directly to your institution's bookstore and LMS administrator — no spreadsheet, no email chain.</p>
+        <button class="mhbcta" id="mhctabtn">Review and confirm my courses</button>
+        <div class="mhtoken">Secure link · unique to sarah.chen@stateuniversity.edu · expires April 18</div>
+      </div>
+      <p class="mhftxt">Not teaching any McGraw Hill courses this fall? No action needed. Questions? Reply to this email or contact your McGraw Hill representative.</p>
+    </div>
+  </div>
+</div>
+
+<div id="mhvw" style="display:none">
+  <div class="mhslbl">What opens in her browser after clicking the link</div>
+  <div class="mhweburl">adoptions.mheducation.com/confirm?token=mh-sc-2026-f8a3&amp;term=fall2026</div>
+  <div class="mhcard">
+    <div class="mhchd">
+      <div style="font-size:14px;font-weight:500;color:var(--color-text-primary);margin-bottom:3px">Fall 2026 course material adoption</div>
+      <div class="mhmeta">Dr. Sarah Chen · State University · Due April 18, 2026</div>
+    </div>
+    <div class="mhcbd">
+      <div class="mhbanner"><div class="mhbdot"></div><div class="mhbtxt2">These courses are from your McGraw Hill Connect history. Select any that are continuing this fall and confirm or update your materials.</div></div>
+      <div class="mhseclbl">Your courses from last term</div>
+
+      <div class="mhcc" id="mhc1">
+        <div class="mhcchd" id="mhcchd1"><div class="mhchk" id="mhk1"></div><div class="mhci"><div class="mhcname">BIO 201 — Cell Biology</div><div class="mhcmeta">Spring 2026 · Section 04 · 28 students</div></div></div>
+        <div id="mhb1" style="display:none" class="mhccbd">
+          <div id="mhml1">
+            <div class="mhmi" id="mhm1">
+              <div class="mhbthumb"><svg width="12" height="12" viewBox="0 0 16 16" fill="none"><rect x="2" y="1" width="10" height="13" rx="1" stroke="var(--color-text-tertiary)" stroke-width="1.2"/><line x1="4" y1="5" x2="10" y2="5" stroke="var(--color-text-tertiary)" stroke-width="1"/><line x1="4" y1="8" x2="10" y2="8" stroke="var(--color-text-tertiary)" stroke-width="1"/></svg></div>
+              <div class="mhminfo">
+                <div class="mhmt">Molecular Biology of the Cell</div>
+                <div class="mhma">Alberts, Johnson, Lewis · 7th Edition</div>
+                <div class="mhisbn">ISBN: 978-0-393-88482-1</div>
+                <div class="mhmacts">
+                  <button class="mhbghost" id="mhchg1">Change</button>
+                  <button class="mhbrm" id="mhrmv1">Remove</button>
+                </div>
+                <div id="mhsp1" style="display:none" class="mhspanel">
+                  <input class="mhsinput" id="mhsi1" placeholder="Search catalog..."/>
+                  <div id="mhsr1" style="display:none"><div class="mhrlbl">McGraw Hill catalog</div>
+                    <div class="mhrrow" id="mhrr1a"><div><div class="mhrt">Biology: The Essentials</div><div class="mhrm">Hoefnagels · 3rd Ed · ISBN: 978-1-260-16946-2</div></div></div>
+                    <div class="mhrrow" id="mhrr1b"><div><div class="mhrt">Cell Biology: A Short Course</div><div class="mhrm">Bolsover · 3rd Ed · ISBN: 978-0-470-52072-6</div></div></div>
+                    <div class="mhrrow" id="mhrr1c"><div><div class="mhrt">Molecular Biology of the Cell</div><div class="mhrm">Alberts · 7th Ed</div></div><div class="mhbdg mhbprev">Used previously</div></div>
+                  </div>
+                  <div id="mhse1" style="display:none" class="mhempty"><p>No results.</p><p>Reply to the email and our team will help.</p></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button class="mhaddtxt" id="mhat1btn">+ Add another text for this course</button>
+          <div id="mhat1" style="display:none" class="mhspanel">
+            <input class="mhsinput" id="mhati1" placeholder="Search by title, author, or ISBN..."/>
+            <div id="mhar1" style="display:none"><div class="mhrlbl">McGraw Hill catalog</div>
+              <div class="mhrrow" id="mhara1"><div><div class="mhrt">Laboratory Manual for Biology</div><div class="mhrm">Perry, Morton · 5th Ed · ISBN: 978-0-07-340371-7</div></div></div>
+              <div class="mhrrow" id="mharb1"><div><div class="mhrt">Concepts of Genetics</div><div class="mhrm">Klug, Cummings · 12th Ed · ISBN: 978-0-13-494626-4</div></div></div>
+              <div class="mhrrow" id="mharc1"><div><div class="mhrt">Molecular Biology of the Cell</div><div class="mhrm">Alberts · 7th Ed</div></div><div class="mhbdg mhbprev">Used previously</div></div>
+            </div>
+            <div id="mhae1" style="display:none" class="mhempty"><p>No results.</p><p>Reply to the email and our team will help.</p></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mhcc" id="mhc2">
+        <div class="mhcchd" id="mhcchd2"><div class="mhchk" id="mhk2"></div><div class="mhci"><div class="mhcname">BIO 101 — Introduction to Biology</div><div class="mhcmeta">Spring 2026 · Section 01 · 45 students</div></div></div>
+        <div id="mhb2" style="display:none" class="mhccbd">
+          <div id="mhml2">
+            <div class="mhmi" id="mhm2">
+              <div class="mhbthumb"><svg width="12" height="12" viewBox="0 0 16 16" fill="none"><rect x="2" y="1" width="10" height="13" rx="1" stroke="var(--color-text-tertiary)" stroke-width="1.2"/><line x1="4" y1="5" x2="10" y2="5" stroke="var(--color-text-tertiary)" stroke-width="1"/><line x1="4" y1="8" x2="10" y2="8" stroke="var(--color-text-tertiary)" stroke-width="1"/></svg></div>
+              <div class="mhminfo">
+                <div class="mhmt">Biology: The Essentials</div>
+                <div class="mhma">Hoefnagels · 3rd Edition</div>
+                <div class="mhisbn">ISBN: 978-1-260-16946-2</div>
+                <div class="mhmacts">
+                  <button class="mhbghost" id="mhchg2">Change</button>
+                  <button class="mhbrm" id="mhrmv2">Remove</button>
+                </div>
+                <div id="mhsp2" style="display:none" class="mhspanel">
+                  <input class="mhsinput" id="mhsi2" placeholder="Search catalog..."/>
+                  <div id="mhsr2" style="display:none"><div class="mhrlbl">McGraw Hill catalog</div>
+                    <div class="mhrrow" id="mhrr2a"><div><div class="mhrt">Concepts of Biology</div><div class="mhrm">Fowler · 2nd Ed · ISBN: 978-1-938168-40-5</div></div></div>
+                    <div class="mhrrow" id="mhrr2b"><div><div class="mhrt">Biology: The Essentials</div><div class="mhrm">Hoefnagels · 3rd Ed</div></div><div class="mhbdg mhbprev">Used previously</div></div>
+                  </div>
+                  <div id="mhse2" style="display:none" class="mhempty"><p>No results.</p><p>Reply to the email and our team will help.</p></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button class="mhaddtxt" id="mhat2btn">+ Add another text for this course</button>
+          <div id="mhat2" style="display:none" class="mhspanel">
+            <input class="mhsinput" id="mhati2" placeholder="Search by title, author, or ISBN..."/>
+            <div id="mhar2" style="display:none"><div class="mhrlbl">McGraw Hill catalog</div>
+              <div class="mhrrow" id="mhara2"><div><div class="mhrt">Biology Lab Manual</div><div class="mhrm">Vodopich · 11th Ed · ISBN: 978-0-07-340335-9</div></div></div>
+              <div class="mhrrow" id="mharb2"><div><div class="mhrt">Concepts of Biology</div><div class="mhrm">Fowler · 2nd Ed · ISBN: 978-1-938168-40-5</div></div></div>
+            </div>
+            <div id="mhae2" style="display:none" class="mhempty"><p>No results.</p><p>Reply to the email and our team will help.</p></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="mhncc"></div>
+      <div id="mhntcs"></div>
+
+      <div style="margin-bottom:14px">
+        <button class="mhaddccbtn" id="mhaddccbtn">+ Teaching a new course not listed above?</button>
+        <div id="mhncf" style="display:none;margin-top:8px">
+          <div class="mhncform">
+            <div class="mhseclbl">New course</div>
+            <label class="mhflbl">Course name or number</label>
+            <input class="mhfinput" type="text" id="mhncn" placeholder="e.g. BIO 301 — Genetics"/>
+            <label class="mhflbl">Search for materials</label>
+            <input class="mhsinput" id="mhncs" style="margin-bottom:6px" placeholder="Search by title, author, or ISBN..."/>
+            <div id="mhncr" style="display:none"><div class="mhrlbl">McGraw Hill catalog</div>
+              <div class="mhrrow" id="mhnca"><div><div class="mhrt">Concepts of Genetics</div><div class="mhrm">Klug · 12th Ed · ISBN: 978-0-13-494626-4</div></div></div>
+              <div class="mhrrow" id="mhncb"><div><div class="mhrt">Molecular Biology of the Cell</div><div class="mhrm">Alberts · 7th Ed</div></div><div class="mhbdg mhbprev">Used previously</div></div>
+              <div class="mhrrow" id="mhncc2"><div><div class="mhrt">Cell Biology: A Short Course</div><div class="mhrm">Bolsover · 3rd Ed · ISBN: 978-0-470-52072-6</div></div></div>
+            </div>
+            <div id="mhnce" style="display:none" class="mhempty"><p>No results.</p><p>Reply to the email and our team will help.</p></div>
+          </div>
+          <button class="mhbghost" id="mhnccancel">Cancel</button>
+        </div>
+      </div>
+
+      <div class="mhbtnrow">
+        <button class="mhbprim" id="mhcbtn" disabled>Confirm selected courses</button>
+      </div>
+      <p class="mhftxt">Not teaching any McGraw Hill courses this fall? No action needed. Questions? Reply to the original email or contact your McGraw Hill representative.</p>
+    </div>
+  </div>
+</div>
+
+<div id="mhvc" style="display:none">
+  <div class="mhslbl">Confirmation screen</div>
+  <div class="mhcard">
+    <div class="mhconfctr">
+      <div class="mhchkcirc"><svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M5 10l4 4 7-8" stroke="var(--color-text-success)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="mhconfh">Adoption confirmed</div>
+      <div class="mhconfs">Submitted April 2, 2026 · 8:17 AM · Confirmation #MH-2026-48821</div>
+      <div id="mhcl"></div>
+      <div class="mhconfblk">
+        <div class="mhmgrid">
+          <div><div class="mhml">Faculty</div><div class="mhmv">Dr. Sarah Chen</div></div>
+          <div><div class="mhml">Term</div><div class="mhmv">Fall 2026</div></div>
+          <div><div class="mhml">Institution</div><div class="mhmv">State University</div></div>
+          <div><div class="mhml">Sent to</div><div class="mhmv">Bookstore + Admin</div></div>
+        </div>
+      </div>
+      <div class="mhconfftr">A copy has been sent to sarah.chen@stateuniversity.edu.<br>Your bookstore and LMS administrator have been notified.</div>
+      <div style="margin-top:20px"><button class="mhbghost" id="mhresetbtn">Start over</button></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<script>
+(function(){
+var mhsel={},mhncc=0;
+var kws=['bio','cell','concept','mol','978','gen','hoe','fow','bol','lab','klug','per','vod','alb'];
+
+function mhshow(id){['mhve','mhvw','mhvc'].forEach(function(v){document.getElementById(v).style.display=v===id?'block':'none';});}
+function mhstep(lbl,pct){document.getElementById('mhslbl').textContent=lbl;document.getElementById('mhpbar').style.width=pct;}
+function mhtp(id){var e=document.getElementById(id);if(e)e.style.display=e.style.display==='none'?'block':'none';}
+function mhhs(val,rid,eid){var r=document.getElementById(rid),e=document.getElementById(eid);if(!r||!e)return;if(val.length<2){r.style.display='none';e.style.display='none';return;}var m=kws.some(function(k){return val.toLowerCase().includes(k);});r.style.display=m?'block':'none';e.style.display=m?'none':'block';}
+function mhupd(){var t=Object.keys(mhsel).length+mhncc,btn=document.getElementById('mhcbtn');btn.disabled=t===0;btn.textContent=t===0?'Confirm selected courses':t===1?'Confirm 1 course':'Confirm '+t+' courses';}
+function mhtog(id){var k=document.getElementById('mhk'+id),b=document.getElementById('mhb'+id),c=document.getElementById('mhc'+id);if(mhsel[id]){delete mhsel[id];k.classList.remove('mhon');b.style.display='none';c.classList.remove('mhsel');}else{mhsel[id]=1;k.classList.add('mhon');b.style.display='block';c.classList.add('mhsel');}mhupd();}
+function mhrep(mid,spid,t,a,i,prev){var el=document.getElementById(mid);if(!el)return;el.querySelector('.mhmt').textContent=t;el.querySelector('.mhma').textContent=a;el.querySelector('.mhisbn').textContent='ISBN: '+i;var bdgs=el.querySelectorAll('.mhbdg');bdgs.forEach(function(b){b.remove();});if(prev){var nb=document.createElement('div');nb.className='mhbdg mhbprev';nb.textContent='Used previously';el.querySelector('.mhminfo').after(nb);}else{var nb=document.createElement('div');nb.className='mhbdg mhbnew';nb.textContent='New selection';el.querySelector('.mhminfo').after(nb);}document.getElementById(spid).style.display='none';}
+function mhaddtxtfn(cid,t,a,i,prev){var c=document.getElementById('mhml'+cid),idx=Date.now(),div=document.createElement('div');div.className='mhmi';div.id='mhdyn'+idx;var bdg=prev?'<div class="mhbdg mhbprev">Used previously</div>':'<div class="mhbdg mhbnew">New selection</div>';div.innerHTML='<div class="mhbthumb"><svg width="12" height="12" viewBox="0 0 16 16" fill="none"><rect x="2" y="1" width="10" height="13" rx="1" stroke="var(--color-text-tertiary)" stroke-width="1.2"/><line x1="4" y1="5" x2="10" y2="5" stroke="var(--color-text-tertiary)" stroke-width="1"/></svg></div><div class="mhminfo"><div class="mhmt">'+t+'</div><div class="mhma">'+a+'</div><div class="mhisbn">ISBN: '+i+'</div><div class="mhmacts"><button class="mhbrm" onclick="document.getElementById(\'mhdyn'+idx+'\').remove()">Remove</button></div></div>'+bdg;c.appendChild(div);document.getElementById('mhat'+cid).style.display='none';mhnotice(t+' added.');}
+function mhaddnc(t,a,i,prev){var name=document.getElementById('mhncn').value.trim()||'New course';mhncc++;var id='mhnc'+Date.now(),cont=document.getElementById('mhncc'),card=document.createElement('div');card.className='mhcc mhsel';card.id=id;var bdg=prev?'<div class="mhbdg mhbprev">Used previously</div>':'<div class="mhbdg mhbnew">New selection</div>';card.innerHTML='<div class="mhcchd" style="cursor:default"><div class="mhchk mhon" style="pointer-events:none"></div><div class="mhci"><div class="mhcname">'+name+'<span class="mhnewtag">New</span></div><div class="mhcmeta">Fall 2026 · New course</div></div><button class="mhbrm" onclick="var e=document.getElementById(\''+id+'\');if(e){e.remove();mhncc=Math.max(0,mhncc-1);mhupd();}">Remove</button></div><div class="mhccbd"><div class="mhmi"><div class="mhbthumb"><svg width="12" height="12" viewBox="0 0 16 16" fill="none"><rect x="2" y="1" width="10" height="13" rx="1" stroke="var(--color-text-tertiary)" stroke-width="1.2"/><line x1="4" y1="5" x2="10" y2="5" stroke="var(--color-text-tertiary)" stroke-width="1"/></svg></div><div class="mhminfo"><div class="mhmt">'+t+'</div><div class="mhma">'+a+'</div><div class="mhisbn">ISBN: '+i+'</div></div>'+bdg+'</div></div>';cont.appendChild(card);document.getElementById('mhncn').value='';document.getElementById('mhncs').value='';document.getElementById('mhncr').style.display='none';document.getElementById('mhnce').style.display='none';document.getElementById('mhncf').style.display='none';mhupd();mhnotice(name+' added.');}
+function mhnotice(msg){var n=document.createElement('div');n.className='mhnotice';n.textContent=msg;document.getElementById('mhntcs').appendChild(n);setTimeout(function(){if(n.parentNode)n.parentNode.removeChild(n);},3000);}
+function mhgoconf(){var list=document.getElementById('mhcl');list.innerHTML='';var cnames={1:'BIO 201 — Cell Biology · Section 04',2:'BIO 101 — Introduction to Biology · Section 01'};Object.keys(mhsel).forEach(function(id){var mats=document.getElementById('mhml'+id).querySelectorAll('.mhmi'),mh='';mats.forEach(function(m){if(m.style.display==='none')return;var t=m.querySelector('.mhmt').textContent,a=m.querySelector('.mhma').textContent,isn=m.querySelector('.mhisbn').textContent,b=m.querySelector('.mhbdg'),bh=b?'<div class="mhbdg '+b.className.replace('mhbdg ','')+'">'+b.textContent+'</div>':'';mh+='<div class="mhconfmi"><div class="mhbthumb"><svg width="12" height="12" viewBox="0 0 16 16" fill="none"><rect x="2" y="1" width="10" height="13" rx="1" stroke="var(--color-text-tertiary)" stroke-width="1.2"/></svg></div><div class="mhminfo"><div class="mhmt">'+t+'</div><div class="mhma">'+a+'</div><div class="mhisbn">'+isn+'</div></div>'+bh+'</div>';});var blk=document.createElement('div');blk.className='mhconfblk';blk.innerHTML='<div class="mhconfcn">'+cnames[id]+'</div>'+mh;list.appendChild(blk);});document.getElementById('mhncc').querySelectorAll('.mhcc').forEach(function(card){var name=card.querySelector('.mhcname').childNodes[0].textContent.trim(),mats=card.querySelectorAll('.mhmi'),mh='';mats.forEach(function(m){var t=m.querySelector('.mhmt').textContent,a=m.querySelector('.mhma').textContent,isn=m.querySelector('.mhisbn').textContent,b=m.querySelector('.mhbdg'),bh=b?'<div class="mhbdg '+b.className.replace('mhbdg ','')+'">'+b.textContent+'</div>':'';mh+='<div class="mhconfmi"><div class="mhbthumb"><svg width="12" height="12" viewBox="0 0 16 16" fill="none"><rect x="2" y="1" width="10" height="13" rx="1" stroke="var(--color-text-tertiary)" stroke-width="1.2"/></svg></div><div class="mhminfo"><div class="mhmt">'+t+'</div><div class="mhma">'+a+'</div><div class="mhisbn">'+isn+'</div></div>'+bh+'</div>';});var blk=document.createElement('div');blk.className='mhconfblk';blk.innerHTML='<div class="mhconfcn">'+name+' · New course</div>'+mh;list.appendChild(blk);});mhshow('mhvc');mhstep('Step 3 of 3 — Confirmed','100%');}
+function mhreset(){mhsel={};mhncc=0;['1','2'].forEach(function(id){document.getElementById('mhk'+id).classList.remove('mhon');document.getElementById('mhb'+id).style.display='none';document.getElementById('mhc'+id).classList.remove('mhsel');var ml=document.getElementById('mhml'+id);Array.from(ml.querySelectorAll('.mhmi')).forEach(function(m,i){if(i===0){m.style.display='flex';var bdgs=m.querySelectorAll('.mhbdg');bdgs.forEach(function(b){b.remove();});if(id==='1'){m.querySelector('.mhmt').textContent='Molecular Biology of the Cell';m.querySelector('.mhma').textContent='Alberts, Johnson, Lewis · 7th Edition';m.querySelector('.mhisbn').textContent='ISBN: 978-0-393-88482-1';}else{m.querySelector('.mhmt').textContent='Biology: The Essentials';m.querySelector('.mhma').textContent='Hoefnagels · 3rd Edition';m.querySelector('.mhisbn').textContent='ISBN: 978-1-260-16946-2';}}else m.remove();});document.getElementById('mhat'+id).style.display='none';document.getElementById('mhsp'+id).style.display='none';});document.getElementById('mhncc').innerHTML='';document.getElementById('mhntcs').innerHTML='';document.getElementById('mhcbtn').disabled=true;document.getElementById('mhcbtn').textContent='Confirm selected courses';document.getElementById('mhncf').style.display='none';document.getElementById('mhncn').value='';document.getElementById('mhncs').value='';document.getElementById('mhncr').style.display='none';mhshow('mhve');mhstep('Step 1 of 3 — Email','33%');}
+
+document.getElementById('mhctabtn').onclick=function(){mhshow('mhvw');mhstep('Step 2 of 3 — Review courses','66%');};
+document.getElementById('mhresetbtn').onclick=mhreset;
+document.getElementById('mhcbtn').onclick=mhgoconf;
+document.getElementById('mhcchd1').onclick=function(){mhtog(1);};
+document.getElementById('mhcchd2').onclick=function(){mhtog(2);};
+document.getElementById('mhchg1').onclick=function(e){e.stopPropagation();mhtp('mhsp1');};
+document.getElementById('mhrmv1').onclick=function(e){e.stopPropagation();document.getElementById('mhm1').remove();};
+document.getElementById('mhchg2').onclick=function(e){e.stopPropagation();mhtp('mhsp2');};
+document.getElementById('mhrmv2').onclick=function(e){e.stopPropagation();document.getElementById('mhm2').remove();};
+document.getElementById('mhat1btn').onclick=function(e){e.stopPropagation();mhtp('mhat1');};
+document.getElementById('mhat2btn').onclick=function(e){e.stopPropagation();mhtp('mhat2');};
+document.getElementById('mhaddccbtn').onclick=function(){mhtp('mhncf');};
+document.getElementById('mhnccancel').onclick=function(){mhtp('mhncf');};
+document.getElementById('mhsi1').oninput=function(){mhhs(this.value,'mhsr1','mhse1');};
+document.getElementById('mhsi2').oninput=function(){mhhs(this.value,'mhsr2','mhse2');};
+document.getElementById('mhati1').oninput=function(){mhhs(this.value,'mhar1','mhae1');};
+document.getElementById('mhati2').oninput=function(){mhhs(this.value,'mhar2','mhae2');};
+document.getElementById('mhncs').oninput=function(){mhhs(this.value,'mhncr','mhnce');};
+document.getElementById('mhrr1a').onclick=function(){mhrep('mhm1','mhsp1','Biology: The Essentials','Hoefnagels · 3rd Ed','978-1-260-16946-2',false);};
+document.getElementById('mhrr1b').onclick=function(){mhrep('mhm1','mhsp1','Cell Biology: A Short Course','Bolsover · 3rd Ed','978-0-470-52072-6',false);};
+document.getElementById('mhrr1c').onclick=function(){mhrep('mhm1','mhsp1','Molecular Biology of the Cell','Alberts · 7th Ed','978-0-393-88482-1',true);};
+document.getElementById('mhrr2a').onclick=function(){mhrep('mhm2','mhsp2','Concepts of Biology','Fowler · 2nd Ed','978-1-938168-40-5',false);};
+document.getElementById('mhrr2b').onclick=function(){mhrep('mhm2','mhsp2','Biology: The Essentials','Hoefnagels · 3rd Ed','978-1-260-16946-2',true);};
+document.getElementById('mhara1').onclick=function(){mhaddtxtfn(1,'Laboratory Manual for Biology','Perry, Morton · 5th Ed','978-0-07-340371-7',false);};
+document.getElementById('mharb1').onclick=function(){mhaddtxtfn(1,'Concepts of Genetics','Klug, Cummings · 12th Ed','978-0-13-494626-4',false);};
+document.getElementById('mharc1').onclick=function(){mhaddtxtfn(1,'Molecular Biology of the Cell','Alberts · 7th Ed','978-0-393-88482-1',true);};
+document.getElementById('mhara2').onclick=function(){mhaddtxtfn(2,'Biology Lab Manual','Vodopich · 11th Ed','978-0-07-340335-9',false);};
+document.getElementById('mharb2').onclick=function(){mhaddtxtfn(2,'Concepts of Biology','Fowler · 2nd Ed','978-1-938168-40-5',false);};
+document.getElementById('mhnca').onclick=function(){mhaddnc('Concepts of Genetics','Klug · 12th Ed','978-0-13-494626-4',false);};
+document.getElementById('mhncb').onclick=function(){mhaddnc('Molecular Biology of the Cell','Alberts · 7th Ed','978-0-393-88482-1',true);};
+document.getElementById('mhncc2').onclick=function(){mhaddnc('Cell Biology: A Short Course','Bolsover · 3rd Ed','978-0-470-52072-6',false);};
+})();
+</script>
