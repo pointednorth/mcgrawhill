@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>McGraw Hill — Course Material Adoption</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #f2f1ed;
+  min-height: 100vh;
+  padding: 2rem 1rem;
+  color: #1a1a1a;
+}
+.outer { max-width: 620px; margin: 0 auto; }
+.mh-logo { display: flex; align-items: center; gap: 8px; margin-bottom: 2rem; }
+.mh-logo-mark { width: 28px; height: 28px; background: #d32f2f; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: #fff; }
+.mh-logo-text { font-size: 14px; font-weight: 600; color: #1a1a1a; }
+.mh-logo-sub { font-size: 12px; color: #999; }
+.stage-label { font-size: 11px; font-weight: 600; color: #aaa; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+.progress-row { display: flex; align-items: center; gap: 10px; margin-bottom: 1.5rem; font-size: 13px; color: #888; }
+.progress-track { flex: 1; height: 2px; background: #d8d8d4; border-radius: 2px; overflow: hidden; }
+.progress-fill { height: 100%; background: #555; transition: width 0.4s ease; }
+.card { background: #fff; border-radius: 12px; border: 1px solid #e4e4e0; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+.card-header { padding: 16px 20px; border-bottom: 1px solid #eeede9; }
+.card-body { padding: 20px; }
+.meta-row { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px; }
+.meta { font-size: 13px; color: #888; }
+.timestamp { font-size: 12px; color: #bbb; }
+.subject { font-size: 15px; font-weight: 600; color: #1a1a1a; margin-top: 10px; }
+.body-text { font-size: 14px; color: #555; margin: 0 0 16px; line-height: 1.65; }
+.section-label { font-size: 11px; font-weight: 600; color: #aaa; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 10px; }
+.email-cta-box { background: #f8f7f3; border-radius: 10px; padding: 18px; margin: 4px 0 18px; border: 1px solid #e4e4e0; text-align: center; }
+.email-cta-box p { font-size: 13px; color: #777; margin-bottom: 14px; line-height: 1.6; }
+.btn-cta { display: inline-block; padding: 11px 28px; font-size: 14px; font-weight: 500; background: #1a1a1a; color: #fff; border: none; border-radius: 8px; cursor: pointer; font-family: inherit; transition: background 0.15s; }
+.btn-cta:hover { background: #333; }
+.email-token { font-size: 11px; color: #bbb; margin-top: 12px; }
+.web-banner { background: #eef0fb; border-radius: 8px; padding: 10px 14px; margin-bottom: 16px; display: flex; align-items: flex-start; gap: 8px; }
+.web-banner-dot { width: 8px; height: 8px; border-radius: 50%; background: #3d4db7; flex-shrink: 0; margin-top: 3px; }
+.web-banner-text { font-size: 12px; color: #3d4db7; line-height: 1.5; }
+.web-url { font-size: 11px; color: #888; font-family: monospace; margin-bottom: 20px; }
+.course-card { border: 1px solid #e4e4e0; border-radius: 8px; margin-bottom: 10px; overflow: hidden; transition: border-color 0.15s; }
+.course-card.selected { border-color: #1a1a1a; }
+.course-card-header { display: flex; align-items: center; gap: 12px; padding: 12px 14px; cursor: pointer; background: #fff; transition: background 0.12s; }
+.course-card-header:hover { background: #f8f7f3; }
+.course-checkbox { width: 18px; height: 18px; border-radius: 4px; border: 1.5px solid #ccc; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
+.course-checkbox.checked { background: #1a1a1a; border-color: #1a1a1a; }
+.course-checkbox.checked::after { content: ''; display: block; width: 5px; height: 9px; border: 2px solid #fff; border-top: none; border-left: none; transform: rotate(45deg) translateY(-1px); }
+.course-info { flex: 1; }
+.course-name { font-size: 14px; font-weight: 500; color: #1a1a1a; margin-bottom: 2px; }
+.course-meta { font-size: 12px; color: #888; }
+.course-body { padding: 0 14px 14px; border-top: 1px solid #eee; background: #fafaf8; }
+.material-item { display: flex; gap: 10px; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid #eee; }
+.material-item:last-of-type { border-bottom: none; }
+.book-thumb { width: 36px; height: 46px; background: #e4e4e0; border-radius: 3px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+.material-info { flex: 1; }
+.material-title { font-size: 13px; font-weight: 500; color: #1a1a1a; margin-bottom: 2px; }
+.material-author { font-size: 12px; color: #666; margin-bottom: 2px; }
+.material-isbn { font-size: 11px; color: #aaa; }
+.material-actions { display: flex; gap: 6px; margin-top: 6px; }
+.badge { font-size: 11px; font-weight: 500; padding: 3px 8px; border-radius: 20px; white-space: nowrap; flex-shrink: 0; }
+.badge-previous { background: #eef0fb; color: #3d4db7; }
+.badge-new { background: #fef3e2; color: #92520a; }
+.add-text-btn { font-size: 12px; color: #888; background: #fff; border: 1px dashed #ccc; border-radius: 6px; padding: 6px 10px; cursor: pointer; font-family: inherit; margin-top: 10px; transition: all 0.12s; display: block; width: 100%; text-align: left; }
+.add-text-btn:hover { background: #f2f1ed; border-color: #aaa; color: #555; }
+.search-panel { background: #f0efeb; border-radius: 8px; padding: 12px; margin-top: 8px; border: 1px solid #e4e4e0; }
+.search-input { width: 100%; padding: 9px 12px; font-size: 13px; border-radius: 6px; border: 1px solid #ccc; outline: none; font-family: inherit; color: #1a1a1a; background: #fff; }
+.search-input:focus { border-color: #888; }
+.results-label { font-size: 11px; font-weight: 600; color: #aaa; text-transform: uppercase; letter-spacing: 0.07em; margin: 10px 0 6px; }
+.result-row { display: flex; justify-content: space-between; align-items: center; padding: 9px 10px; border-radius: 6px; border: 1px solid #e4e4e0; margin-bottom: 6px; cursor: pointer; transition: background 0.12s; background: #fff; }
+.result-row:hover { background: #eae9e4; }
+.result-title { font-size: 13px; font-weight: 500; color: #1a1a1a; margin-bottom: 1px; }
+.result-meta { font-size: 11px; color: #777; }
+.empty-state { padding: 14px; text-align: center; border: 1px solid #e4e4e0; border-radius: 6px; background: #fff; margin-top: 8px; }
+.empty-title { font-size: 13px; color: #666; margin-bottom: 3px; }
+.empty-sub { font-size: 12px; color: #aaa; }
+.add-course-section { margin-bottom: 16px; }
+.add-course-btn { width: 100%; padding: 10px; font-size: 13px; color: #888; background: #fafaf8; border: 1px dashed #ccc; border-radius: 8px; cursor: pointer; font-family: inherit; transition: all 0.12s; text-align: left; }
+.add-course-btn:hover { background: #f2f1ed; border-color: #aaa; color: #555; }
+.new-course-form { background: #f8f7f3; border-radius: 8px; padding: 14px; margin-bottom: 10px; border: 1px solid #e4e4e0; }
+.form-label { font-size: 12px; color: #888; margin-bottom: 4px; display: block; }
+.form-input { width: 100%; padding: 8px 10px; font-size: 13px; border-radius: 6px; border: 1px solid #ccc; outline: none; font-family: inherit; color: #1a1a1a; background: #fff; margin-bottom: 10px; }
+.form-input:focus { border-color: #888; }
+.btn-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+.btn-primary { padding: 10px 22px; font-size: 14px; font-weight: 500; background: #1a1a1a; color: #fff; border: none; border-radius: 8px; cursor: pointer; font-family: inherit; transition: background 0.15s; }
+.btn-primary:hover { background: #333; }
+.btn-primary:disabled { background: #ccc; cursor: not-allowed; }
+.btn-ghost { padding: 8px 14px; font-size: 12px; background: #fff; color: #888; border: 1px solid #ddd; border-radius: 6px; cursor: pointer; font-family: inherit; }
+.btn-ghost:hover { background: #f8f7f3; }
+.btn-remove { padding: 4px 8px; font-size: 11px; background: #fff; color: #cc4444; border: 1px solid #ecc; border-radius: 4px; cursor: pointer; font-family: inherit; }
+.btn-remove:hover { background: #fff0f0; }
+.footer-text { font-size: 12px; color: #bbb; line-height: 1.6; margin-top: 14px; }
+.notice { font-size: 13px; color: #276740; background: #e8f5ee; padding: 8px 12px; border-radius: 6px; margin-bottom: 8px; }
+.confirmed-center { padding: 32px 24px; text-align: center; }
+.check-circle { width: 44px; height: 44px; border-radius: 50%; background: #e8f5ee; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; }
+.confirmed-heading { font-size: 17px; font-weight: 600; color: #1a1a1a; margin-bottom: 6px; }
+.confirmed-sub { font-size: 13px; color: #999; margin-bottom: 24px; }
+.confirmed-block { background: #f8f7f3; border-radius: 8px; padding: 14px; text-align: left; margin-bottom: 12px; border: 1px solid #eae9e4; }
+.confirmed-course-name { font-size: 13px; font-weight: 500; color: #1a1a1a; margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px solid #eae9e4; }
+.confirmed-material { display: flex; gap: 10px; align-items: flex-start; padding: 6px 0; border-bottom: 1px solid #eee; }
+.confirmed-material:last-child { border-bottom: none; padding-bottom: 0; }
+.meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.meta-label { font-size: 11px; color: #aaa; margin-bottom: 2px; }
+.meta-value { font-size: 13px; color: #1a1a1a; font-weight: 500; }
+.confirmed-footer { font-size: 13px; color: #aaa; line-height: 1.7; }
+.new-course-tag { display: inline-block; font-size: 10px; font-weight: 600; color: #92520a; background: #fef3e2; padding: 2px 6px; border-radius: 4px; margin-left: 6px; vertical-align: middle; }
+</style>
+</head>
+<body>
+<div class="outer">
+
+<div class="mh-logo">
+  <div class="mh-logo-mark">MH</div>
+  <div>
+    <div class="mh-logo-text">McGraw Hill</div>
+    <div class="mh-logo-sub">Course Material Adoption</div>
+  </div>
+</div>
+
+<div class="progress-row">
+  <span id="step-label">Step 1 of 3 — Email</span>
+  <div class="progress-track"><div class="progress-fill" id="progress-bar" style="width:33%"></div></div>
+</div>
+
+<!-- STEP 1: Email -->
+<div id="view-email">
+  <div class="stage-label">What Dr. Chen sees in her inbox</div>
+  <div class="card">
+    <div class="card-header">
+      <div class="meta-row">
+        <span class="meta">From: McGraw Hill Adoptions &lt;<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2544414a55514c4a4b5665484d4041504644514c4a4b0b464a48">[email&#160;protected]</a>&gt;</span>
+        <span class="timestamp">Mar 28, 2026 · 8:04 AM</span>
+      </div>
+      <div class="meta" style="margin-top:3px;">To: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ec9f8d9e8d84c28f848982ac9f988d98899982859a899e9f859895c2898899">[email&#160;protected]</a></div>
+      <div class="subject">Action needed: confirm your Fall 2026 course materials</div>
+    </div>
+    <div class="card-body">
+      <p class="body-text">Hi Dr. Chen,</p>
+      <p class="body-text">Fall 2026 adoptions are due by <strong style="color:#1a1a1a;">April 18, 2026</strong>. We've found courses from your McGraw Hill Connect history that may be continuing this fall.</p>
+      <p class="body-text">Click below to review your prior courses, confirm which are running again, and update your materials if anything has changed. It takes about two minutes.</p>
+      <div class="email-cta-box">
+        <p>Your submission goes directly to your institution's bookstore and LMS administrator — no spreadsheet, no email chain.</p>
+        <button class="btn-cta" onclick="showWebPage()">Review and confirm my courses</button>
+        <div class="email-token">Secure link · unique to <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6013011201084e0308050e201314011405150e09160512130914194e050415">[email&#160;protected]</a> · expires April 18</div>
+      </div>
+      <p class="footer-text">Not teaching any McGraw Hill courses this fall? No action needed. Questions? Reply to this email or contact your McGraw Hill representative.</p>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 2: Web page -->
+<div id="view-web" style="display:none;">
+  <div class="stage-label">What opens in her browser after clicking the link</div>
+  <div class="web-url">adoptions.mheducation.com/confirm?token=mh-sc-2026-f8a3&amp;term=fall2026</div>
+  <div class="card">
+    <div class="card-header">
+      <div style="font-size:15px;font-weight:600;color:#1a1a1a;margin-bottom:4px;">Fall 2026 course material adoption</div>
+      <div class="meta">Dr. Sarah Chen · State University · Due April 18, 2026</div>
+    </div>
+    <div class="card-body">
+      <div class="web-banner">
+        <div class="web-banner-dot"></div>
+        <div class="web-banner-text">These courses are from your McGraw Hill Connect history. Select any that are continuing this fall and confirm or update your materials.</div>
+      </div>
+
+      <div class="section-label">Your courses from last term</div>
+
+      <!-- Course 1 -->
+      <div class="course-card" id="course-1">
+        <div class="course-card-header" onclick="toggleCourse(1)">
+          <div class="course-checkbox" id="check-1"></div>
+          <div class="course-info">
+            <div class="course-name">BIO 201 — Cell Biology</div>
+            <div class="course-meta">Spring 2026 · Section 04 · 28 students</div>
+          </div>
+        </div>
+        <div class="course-body" id="body-1" style="display:none;">
+          <div id="materials-1">
+            <div class="material-item" id="mat-1-0">
+              <div class="book-thumb"><svg width="13" height="13" viewBox="0 0 16 16" fill="none"><rect x="2" y="1" width="10" height="13" rx="1" stroke="#aaa" stroke-width="1.2"/><line x1="4" y1="5" x2="10" y2="5" stroke="#aaa" stroke-width="1"/><line x1="4" y1="8" x2="10" y2="8" stroke="#aaa" stroke-width="1"/></svg></div>
+              <div class="material-info">
+                <div class="material-title">Molecular Biology of the Cell</div>
+                <div class="material-author">Alberts, Johnson, Lewis · 7th Edition</div>
+                <div class="material-isbn">ISBN: 978-0-393-88482-1</div>
+                <div class="material-actions">
+                  <button class="btn-ghost" onclick="event.stopPropagation();togglePanel('search-1-0')">Change</button>
+                  <button class="btn-remove" onclick="event.stopPropagation();removeItem('mat-1-0')">Remove</button>
+                </div>
+                <div id="search-1-0" style="display:none;" class="search-panel">
+                  <input class="search-input" placeholder="Search catalog..." oninput="handleSearch(this.value,'r-1-0','e-1-0')"/>
+                  <div id="r-1-0" style="display:none;">
+                    <div class="results-label">McGraw Hill catalog</div>
+                    <div class="result-row" onclick="replaceItem('mat-1-0','Biology: The Essentials','Hoefnagels · 3rd Ed','978-1-260-16946-2',false,'search-1-0')"><div><div class="result-title">Biology: The Essentials</div><div class="result-meta">Hoefnagels · 3rd Edition · ISBN: 978-1-260-16946-2</div></div></div>
+                    <div class="result-row" onclick="replaceItem('mat-1-0','Cell Biology: A Short Course','Bolsover, Hyams · 3rd Ed','978-0-470-52072-6',false,'search-1-0')"><div><div class="result-title">Cell Biology: A Short Course</div><div class="result-meta">Bolsover, Hyams · 3rd Ed · ISBN: 978-0-470-52072-6</div></div></div>
+                    <div class="result-row" onclick="replaceItem('mat-1-0','Molecular Biology of the Cell','Alberts, Johnson, Lewis · 7th Ed','978-0-393-88482-1',true,'search-1-0')"><div><div class="result-title">Molecular Biology of the Cell</div><div class="result-meta">Alberts · 7th Ed · ISBN: 978-0-393-88482-1</div></div><div class="badge badge-previous">Used previously</div></div>
+                  </div>
+                  <div id="e-1-0" style="display:none;" class="empty-state"><div class="empty-title">No results.</div><div class="empty-sub">Reply to the email and our team will help.</div></div>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+          <button class="add-text-btn" onclick="event.stopPropagation();togglePanel('add-1')">+ Add another text for this course</button>
+          <div id="add-1" style="display:none;" class="search-panel" onclick="event.stopPropagation()">
+            <input class="search-input" placeholder="Search by title, author, or ISBN..." oninput="handleSearch(this.value,'ar-1','ae-1')"/>
+            <div id="ar-1" style="display:none;">
+              <div class="results-label">McGraw Hill catalog</div>
+              <div class="result-row" onclick="addTextToCourse(1,'Laboratory Manual for Biology','Perry, Morton · 5th Ed','978-0-07-340371-7',false)"><div><div class="result-title">Laboratory Manual for Biology</div><div class="result-meta">Perry, Morton · 5th Edition · ISBN: 978-0-07-340371-7</div></div></div>
+              <div class="result-row" onclick="addTextToCourse(1,'Concepts of Genetics','Klug, Cummings · 12th Ed','978-0-13-494626-4',false)"><div><div class="result-title">Concepts of Genetics</div><div class="result-meta">Klug, Cummings · 12th Edition · ISBN: 978-0-13-494626-4</div></div></div>
+              <div class="result-row" onclick="addTextToCourse(1,'Molecular Biology of the Cell','Alberts, Johnson, Lewis · 7th Ed','978-0-393-88482-1',true)"><div><div class="result-title">Molecular Biology of the Cell</div><div class="result-meta">Alberts · 7th Ed</div></div><div class="badge badge-previous">Used previously</div></div>
+            </div>
+            <div id="ae-1" style="display:none;" class="empty-state"><div class="empty-title">No results.</div><div class="empty-sub">Reply to the email and our team will help.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Course 2 -->
+      <div class="course-card" id="course-2">
+        <div class="course-card-header" onclick="toggleCourse(2)">
+          <div class="course-checkbox" id="check-2"></div>
+          <div class="course-info">
+            <div class="course-name">BIO 101 — Introduction to Biology</div>
+            <div class="course-meta">Spring 2026 · Section 01 · 45 students</div>
+          </div>
+        </div>
+        <div class="course-body" id="body-2" style="display:none;">
+          <div id="materials-2">
+            <div class="material-item" id="mat-2-0">
+              <div class="book-thumb"><svg width="13" height="13" viewBox="0 0 16 16" fill="none"><rect x="2" y="1" width="10" height="13" rx="1" stroke="#aaa" stroke-width="1.2"/><line x1="4" y1="5" x2="10" y2="5" stroke="#aaa" stroke-width="1"/><line x1="4" y1="8" x2="10" y2="8" stroke="#aaa" stroke-width="1"/></svg></div>
+              <div class="material-info">
+                <div class="material-title">Biology: The Essentials</div>
+                <div class="material-author">Hoefnagels · 3rd Edition</div>
+                <div class="material-isbn">ISBN: 978-1-260-16946-2</div>
+                <div class="material-actions">
+                  <button class="btn-ghost" onclick="event.stopPropagation();togglePanel('search-2-0')">Change</button>
+                  <button class="btn-remove" onclick="event.stopPropagation();removeItem('mat-2-0')">Remove</button>
+                </div>
+                <div id="search-2-0" style="display:none;" class="search-panel">
+                  <input class="search-input" placeholder="Search catalog..." oninput="handleSearch(this.value,'r-2-0','e-2-0')"/>
+                  <div id="r-2-0" style="display:none;">
+                    <div class="results-label">McGraw Hill catalog</div>
+                    <div class="result-row" onclick="replaceItem('mat-2-0','Concepts of Biology','Fowler, Roush, Wise · 2nd Ed','978-1-938168-40-5',false,'search-2-0')"><div><div class="result-title">Concepts of Biology</div><div class="result-meta">Fowler, Roush, Wise · 2nd Ed · ISBN: 978-1-938168-40-5</div></div></div>
+                    <div class="result-row" onclick="replaceItem('mat-2-0','Biology: The Essentials','Hoefnagels · 3rd Ed','978-1-260-16946-2',true,'search-2-0')"><div><div class="result-title">Biology: The Essentials</div><div class="result-meta">Hoefnagels · 3rd Ed · ISBN: 978-1-260-16946-2</div></div><div class="badge badge-previous">Used previously</div></div>
+                  </div>
+                  <div id="e-2-0" style="display:none;" class="empty-state"><div class="empty-title">No results.</div><div class="empty-sub">Reply to the email and our team will help.</div></div>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+          <button class="add-text-btn" onclick="event.stopPropagation();togglePanel('add-2')">+ Add another text for this course</button>
+          <div id="add-2" style="display:none;" class="search-panel" onclick="event.stopPropagation()">
+            <input class="search-input" placeholder="Search by title, author, or ISBN..." oninput="handleSearch(this.value,'ar-2','ae-2')"/>
+            <div id="ar-2" style="display:none;">
+              <div class="results-label">McGraw Hill catalog</div>
+              <div class="result-row" onclick="addTextToCourse(2,'Biology Lab Manual','Vodopich, Moore · 11th Ed','978-0-07-340335-9',false)"><div><div class="result-title">Biology Lab Manual</div><div class="result-meta">Vodopich, Moore · 11th Edition · ISBN: 978-0-07-340335-9</div></div></div>
+              <div class="result-row" onclick="addTextToCourse(2,'Concepts of Biology','Fowler, Roush, Wise · 2nd Ed','978-1-938168-40-5',false)"><div><div class="result-title">Concepts of Biology</div><div class="result-meta">Fowler, Roush, Wise · 2nd Ed · ISBN: 978-1-938168-40-5</div></div></div>
+              <div class="result-row" onclick="addTextToCourse(2,'Biology: The Essentials','Hoefnagels · 3rd Ed','978-1-260-16946-2',true)"><div><div class="result-title">Biology: The Essentials</div><div class="result-meta">Hoefnagels · 3rd Ed</div></div><div class="badge badge-previous">Used previously</div></div>
+            </div>
+            <div id="ae-2" style="display:none;" class="empty-state"><div class="empty-title">No results.</div><div class="empty-sub">Reply to the email and our team will help.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dynamic new courses injected here -->
+      <div id="new-courses-container"></div>
+
+      <div id="notices"></div>
+
+      <!-- Add new course -->
+      <div class="add-course-section">
+        <button class="add-course-btn" id="add-course-btn" onclick="toggleNewCourseForm()">+ Teaching a new course not listed above?</button>
+        <div id="new-course-form" style="display:none;margin-top:8px;">
+          <div class="new-course-form">
+            <div class="section-label">Add a new course</div>
+            <label class="form-label">Course name or number</label>
+            <input class="form-input" type="text" id="new-course-name" placeholder="e.g. BIO 301 — Genetics"/>
+            <label class="form-label">Search for materials</label>
+            <input class="search-input" id="new-course-search" style="margin-bottom:8px;" placeholder="Search by title, author, or ISBN..." oninput="handleSearch(this.value,'nr','ne')"/>
+            <div id="nr" style="display:none;">
+              <div class="results-label">McGraw Hill catalog</div>
+              <div class="result-row" onclick="addNewCourse('Concepts of Genetics','Klug, Cummings · 12th Ed','978-0-13-494626-4',false)"><div><div class="result-title">Concepts of Genetics</div><div class="result-meta">Klug, Cummings · 12th Edition · ISBN: 978-0-13-494626-4</div></div></div>
+              <div class="result-row" onclick="addNewCourse('Molecular Biology of the Cell','Alberts, Johnson, Lewis · 7th Ed','978-0-393-88482-1',true)"><div><div class="result-title">Molecular Biology of the Cell</div><div class="result-meta">Alberts · 7th Ed</div></div><div class="badge badge-previous">Used previously</div></div>
+              <div class="result-row" onclick="addNewCourse('Cell Biology: A Short Course','Bolsover, Hyams · 3rd Ed','978-0-470-52072-6',false)"><div><div class="result-title">Cell Biology: A Short Course</div><div class="result-meta">Bolsover, Hyams · 3rd Ed · ISBN: 978-0-470-52072-6</div></div></div>
+            </div>
+            <div id="ne" style="display:none;" class="empty-state"><div class="empty-title">No results.</div><div class="empty-sub">Reply to the email and our team will help you locate the right materials.</div></div>
+          </div>
+          <button class="btn-ghost" onclick="toggleNewCourseForm()">Cancel</button>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn-primary" id="confirm-btn" onclick="showConfirmation()" disabled>Confirm selected courses</button>
+      </div>
+      <p class="footer-text">Not teaching any McGraw Hill courses this fall? No action needed. Questions? Reply to the original email or contact your McGraw Hill representative.</p>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 3: Confirmed -->
+<div id="view-confirmed" style="display:none;">
+  <div class="stage-label">Confirmation screen</div>
+  <div class="card">
+    <div class="confirmed-center">
+      <div class="check-circle">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 10l4 4 7-8" stroke="#276740" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="confirmed-heading">Adoption confirmed</div>
+      <div class="confirmed-sub">Submitted April 2, 2026 at 8:17 AM · Confirmation #MH-2026-48821</div>
+      <div id="confirmed-list"></div>
+      <div class="confirmed-block">
+        <div class="meta-grid">
+          <div><div class="meta-label">Faculty</div><div class="meta-value">Dr. Sarah Chen</div></div>
+          <div><div class="meta-label">Term</div><div class="meta-value">Fall 2026</div></div>
+          <div><div class="meta-label">Institution</div><div class="meta-value">State University</div></div>
+          <div><div class="meta-label">Sent to</div><div class="meta-value">Bookstore + Admin</div></div>
+        </div>
+      </div>
+      <div class="confirmed-footer">A copy of this confirmation has been sent to <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="abd8cad9cac385c8c3cec5ebd8dfcadfcedec5c2ddced9d8c2dfd285cecfde">[email&#160;protected]</a>.<br>Your bookstore and LMS administrator have been notified.</div>
+      <div style="margin-top:24px;"><button class="btn-ghost" onclick="resetAll()">Start over</button></div>
+    </div>
+  </div>
+</div>
+
+</div>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+var selected = {};
+var newCourseCount = 0;
+
+var priorMaterials = {
+  1: [{ title: 'Molecular Biology of the Cell', author: 'Alberts, Johnson, Lewis · 7th Edition', isbn: '978-0-393-88482-1', isNew: false }],
+  2: [{ title: 'Biology: The Essentials', author: 'Hoefnagels · 3rd Edition', isbn: '978-1-260-16946-2', isNew: false }]
+};
+
+var liveMaterials = {};
+
+function initLiveMaterials() {
+  liveMaterials = {
+    1: [{ title: 'Molecular Biology of the Cell', author: 'Alberts, Johnson, Lewis · 7th Edition', isbn: '978-0-393-88482-1', isNew: false }],
+    2: [{ title: 'Biology: The Essentials', author: 'Hoefnagels · 3rd Edition', isbn: '978-1-260-16946-2', isNew: false }]
+  };
+}
+initLiveMaterials();
+
+function showWebPage() {
+  document.getElementById('view-email').style.display = 'none';
+  document.getElementById('view-web').style.display = 'block';
+  document.getElementById('step-label').textContent = 'Step 2 of 3 — Review courses';
+  document.getElementById('progress-bar').style.width = '66%';
+}
+
+function toggleCourse(id) {
+  var check = document.getElementById('check-'+id);
+  var body = document.getElementById('body-'+id);
+  var card = document.getElementById('course-'+id);
+  if (selected[id]) {
+    delete selected[id];
+    check.classList.remove('checked');
+    body.style.display = 'none';
+    card.classList.remove('selected');
+  } else {
+    selected[id] = true;
+    check.classList.add('checked');
+    body.style.display = 'block';
+    card.classList.add('selected');
+  }
+  updateBtn();
+}
+
+function updateBtn() {
+  var total = Object.keys(selected).length + newCourseCount;
+  var btn = document.getElementById('confirm-btn');
+  btn.disabled = total === 0;
+  btn.textContent = total === 0 ? 'Confirm selected courses' : total === 1 ? 'Confirm 1 course' : 'Confirm ' + total + ' courses';
+}
+
+function togglePanel(id) {
+  var el = document.getElementById(id);
+  if (el) el.style.display = el.style.display === 'none' ? 'block' : 'none';
+}
+
+function handleSearch(val, rId, eId) {
+  var r = document.getElementById(rId);
+  var e = document.getElementById(eId);
+  if (!r || !e) return;
+  if (val.length < 2) { r.style.display = 'none'; e.style.display = 'none'; return; }
+  var kws = ['bio','cell','concept','mol','978','gen','hoe','fow','bol','lab','klug','per','vod','alb','vod'];
+  var match = kws.some(function(k){ return val.toLowerCase().includes(k); });
+  r.style.display = match ? 'block' : 'none';
+  e.style.display = match ? 'none' : 'block';
+}
+
+function removeItem(matId) {
+  var el = document.getElementById(matId);
+  if (el) el.remove();
+}
+
+function replaceItem(matId, title, author, isbn, prev, searchId) {
+  var el = document.getElementById(matId);
+  if (!el) return;
+  el.querySelector('.material-title').textContent = title;
+  el.querySelector('.material-author').textContent = author;
+  el.querySelector('.material-isbn').textContent = 'ISBN: ' + isbn;
+  var badgeId = matId.replace('mat-','badge-');
+  var badge = document.getElementById(badgeId);
+  if (badge) {
+    if (prev) { badge.className = 'badge badge-previous'; badge.textContent = 'Used previously'; }
+    else { badge.className = 'badge badge-new'; badge.textContent = 'New selection'; }
+  }
+  if (searchId) document.getElementById(searchId).style.display = 'none';
+}
+
+function addTextToCourse(courseId, title, author, isbn, prev) {
+  var container = document.getElementById('materials-'+courseId);
+  var idx = Date.now();
+  var div = document.createElement('div');
+  div.className = 'material-item';
+  div.id = 'mat-dyn-'+idx;
+  div.innerHTML =
+    '<div class="book-thumb"><svg width="13" height="13" viewBox="0 0 16 16" fill="none"><rect x="2" y="1" width="10" height="13" rx="1" stroke="#aaa" stroke-width="1.2"/><line x1="4" y1="5" x2="10" y2="5" stroke="#aaa" stroke-width="1"/></svg></div>' +
+    '<div class="material-info">' +
+      '<div class="material-title">'+title+'</div>' +
+      '<div class="material-author">'+author+'</div>' +
+      '<div class="material-isbn">ISBN: '+isbn+'</div>' +
+      '<div class="material-actions"><button class="btn-remove" onclick="event.stopPropagation();removeItem(\'mat-dyn-'+idx+'\')">Remove</button></div>' +
+    '</div>' +
+    (prev ? '<div class="badge badge-previous">Used previously</div>' : '<div class="badge badge-new">New selection</div>');
+  container.appendChild(div);
+  document.getElementById('add-'+courseId).style.display = 'none';
+  showNotice(title + ' added.');
+}
+
+function toggleNewCourseForm() {
+  var el = document.getElementById('new-course-form');
+  el.style.display = el.style.display === 'none' ? 'block' : 'none';
+}
+
+function addNewCourse(title, author, isbn, prev) {
+  var name = document.getElementById('new-course-name').value.trim() || 'New course';
+  newCourseCount++;
+  var ncId = 'nc-' + Date.now();
+
+  var container = document.getElementById('new-courses-container');
+  var card = document.createElement('div');
+  card.className = 'course-card selected';
+  card.id = ncId;
+  card.innerHTML =
+    '<div class="course-card-header" style="cursor:default;">' +
+      '<div class="course-checkbox checked" style="pointer-events:none;"></div>' +
+      '<div class="course-info">' +
+        '<div class="course-name">'+name+'<span class="new-course-tag">New</span></div>' +
+        '<div class="course-meta">Fall 2026 · New course</div>' +
+      '</div>' +
+      '<button class="btn-remove" onclick="removeNewCourse(\''+ncId+'\')">Remove</button>' +
+    '</div>' +
+    '<div class="course-body">' +
+      '<div class="material-item">' +
+        '<div class="book-thumb"><svg width="13" height="13" viewBox="0 0 16 16" fill="none"><rect x="2" y="1" width="10" height="13" rx="1" stroke="#aaa" stroke-width="1.2"/><line x1="4" y1="5" x2="10" y2="5" stroke="#aaa" stroke-width="1"/></svg></div>' +
+        '<div class="material-info">' +
+          '<div class="material-title">'+title+'</div>' +
+          '<div class="material-author">'+author+'</div>' +
+          '<div class="material-isbn">ISBN: '+isbn+'</div>' +
+        '</div>' +
+        (prev ? '<div class="badge badge-previous">Used previously</div>' : '<div class="badge badge-new">New selection</div>') +
+      '</div>' +
+    '</div>';
+
+  container.appendChild(card);
+
+  document.getElementById('new-course-name').value = '';
+  document.getElementById('new-course-search').value = '';
+  document.getElementById('nr').style.display = 'none';
+  document.getElementById('ne').style.display = 'none';
+  document.getElementById('new-course-form').style.display = 'none';
+
+  updateBtn();
+  showNotice(name + ' added.');
+}
+
+function removeNewCourse(id) {
+  var el = document.getElementById(id);
+  if (el) { el.remove(); newCourseCount = Math.max(0, newCourseCount - 1); updateBtn(); }
+}
+
+function showNotice(msg) {
+  var n = document.createElement('div');
+  n.className = 'notice';
+  n.textContent = msg;
+  document.getElementById('notices').appendChild(n);
+  setTimeout(function(){ if(n.parentNode) n.parentNode.removeChild(n); }, 3000);
+}
+
+function showConfirmation() {
+  var list = document.getElementById('confirmed-list');
+  list.innerHTML = '';
+
+  Object.keys(selected).forEach(function(id) {
+    var courseName = id == 1 ? 'BIO 201 — Cell Biology · Section 04' : 'BIO 101 — Introduction to Biology · Section 01';
+    var mats = document.getElementById('materials-'+id).querySelectorAll('.material-item');
+    var matsHtml = '';
+    mats.forEach(function(m) {
+      if (m.style.display === 'none') return;
+      var t = m.querySelector('.material-title').textContent;
+      var a = m.querySelector('.material-author').textContent;
+      var i = m.querySelector('.material-isbn').textContent;
+      var b = m.querySelector('.badge');
+      var bHtml = b ? '<div class="badge '+b.className.replace('badge ','')+'">'+b.textContent+'</div>' : '';
+      matsHtml += '<div class="confirmed-material"><div class="book-thumb"><svg width="13" height="13" viewBox="0 0 16 16" fill="none"><rect x="2" y="1" width="10" height="13" rx="1" stroke="#aaa" stroke-width="1.2"/><line x1="4" y1="5" x2="10" y2="5" stroke="#aaa" stroke-width="1"/></svg></div><div class="material-info"><div class="material-title">'+t+'</div><div class="material-author">'+a+'</div><div class="material-isbn">'+i+'</div></div>'+bHtml+'</div>';
+    });
+    var block = document.createElement('div');
+    block.className = 'confirmed-block';
+    block.innerHTML = '<div class="confirmed-course-name">'+courseName+'</div>' + matsHtml;
+    list.appendChild(block);
+  });
+
+  document.getElementById('new-courses-container').querySelectorAll('.course-card').forEach(function(card) {
+    var name = card.querySelector('.course-name').childNodes[0].textContent.trim();
+    var mats = card.querySelectorAll('.material-item');
+    var matsHtml = '';
+    mats.forEach(function(m) {
+      var t = m.querySelector('.material-title').textContent;
+      var a = m.querySelector('.material-author').textContent;
+      var i = m.querySelector('.material-isbn').textContent;
+      var b = m.querySelector('.badge');
+      var bHtml = b ? '<div class="badge '+b.className.replace('badge ','')+'">'+b.textContent+'</div>' : '';
+      matsHtml += '<div class="confirmed-material"><div class="book-thumb"><svg width="13" height="13" viewBox="0 0 16 16" fill="none"><rect x="2" y="1" width="10" height="13" rx="1" stroke="#aaa" stroke-width="1.2"/><line x1="4" y1="5" x2="10" y2="5" stroke="#aaa" stroke-width="1"/></svg></div><div class="material-info"><div class="material-title">'+t+'</div><div class="material-author">'+a+'</div><div class="material-isbn">'+i+'</div></div>'+bHtml+'</div>';
+    });
+    var block = document.createElement('div');
+    block.className = 'confirmed-block';
+    block.innerHTML = '<div class="confirmed-course-name">'+name+' · New course</div>' + matsHtml;
+    list.appendChild(block);
+  });
+
+  document.getElementById('view-web').style.display = 'none';
+  document.getElementById('view-confirmed').style.display = 'block';
+  document.getElementById('step-label').textContent = 'Step 3 of 3 — Confirmed';
+  document.getElementById('progress-bar').style.width = '100%';
+}
+
+function resetAll() {
+  selected = {}; newCourseCount = 0;
+  initLiveMaterials();
+  document.getElementById('view-email').style.display = 'block';
+  document.getElementById('view-web').style.display = 'none';
+  document.getElementById('view-confirmed').style.display = 'none';
+  document.getElementById('step-label').textContent = 'Step 1 of 3 — Email';
+  document.getElementById('progress-bar').style.width = '33%';
+  ['1','2'].forEach(function(id) {
+    document.getElementById('check-'+id).classList.remove('checked');
+    document.getElementById('body-'+id).style.display = 'none';
+    document.getElementById('course-'+id).classList.remove('selected');
+    var mats = document.getElementById('materials-'+id);
+    Array.from(mats.querySelectorAll('.material-item')).forEach(function(m, i) {
+      if (i === 0) { m.style.display = 'flex'; var b = document.getElementById('badge-'+id+'-0');  var t = m.querySelector('.material-title'); var a = m.querySelector('.material-author'); var isbn = m.querySelector('.material-isbn'); if(id==1){t.textContent='Molecular Biology of the Cell';a.textContent='Alberts, Johnson, Lewis · 7th Edition';isbn.textContent='ISBN: 978-0-393-88482-1';}else{t.textContent='Biology: The Essentials';a.textContent='Hoefnagels · 3rd Edition';isbn.textContent='ISBN: 978-1-260-16946-2';} }
+      else m.remove();
+    });
+    document.getElementById('add-'+id).style.display = 'none';
+    ['search-'+id+
