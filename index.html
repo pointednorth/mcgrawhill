@@ -1,0 +1,151 @@
+
+<div style="background: var(--color-background-secondary); border-radius: var(--border-radius-lg); padding: 2rem; font-family: var(--font-sans);">
+
+<div style="max-width: 600px; margin: 0 auto;">
+
+<div style="display: flex; align-items: center; gap: 10px; margin-bottom: 1.5rem; font-size: 13px; color: var(--color-text-secondary);">
+  <span id="step-label">Step 1 of 3 — Confirmation email</span>
+  <div style="flex: 1; height: 2px; background: var(--color-border-tertiary); border-radius: 2px; overflow: hidden;">
+    <div id="progress-bar" style="height: 100%; background: var(--color-text-secondary); transition: width 0.4s ease; width: 33%;"></div>
+  </div>
+</div>
+
+<div id="view-email" style="background: var(--color-background-primary); border-radius: var(--border-radius-lg); border: 0.5px solid var(--color-border-tertiary); overflow: hidden;">
+  <div style="padding: 16px 20px; border-bottom: 0.5px solid var(--color-border-tertiary);">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px;">
+      <span style="font-size: 13px; color: var(--color-text-secondary);">From: McGraw Hill Adoptions &lt;adoptions@mheducation.com&gt;</span>
+      <span style="font-size: 12px; color: var(--color-text-tertiary);">Mar 28, 2026 · 8:04 AM</span>
+    </div>
+    <div style="font-size: 13px; color: var(--color-text-secondary);">To: sarah.chen@stateuniversity.edu</div>
+    <div style="font-size: 15px; font-weight: 500; color: var(--color-text-primary); margin-top: 10px;">Action needed: confirm your course materials for Fall 2026</div>
+  </div>
+
+  <div style="padding: 24px 20px;">
+    <p style="font-size: 14px; color: var(--color-text-secondary); margin: 0 0 20px; line-height: 1.6;">Hi Dr. Chen,</p>
+    <p style="font-size: 14px; color: var(--color-text-secondary); margin: 0 0 20px; line-height: 1.6;">Fall 2026 adoptions are due by <strong style="color: var(--color-text-primary);">April 18, 2026</strong>. Based on your Spring 2026 selections, we've pre-filled your materials below. Please confirm or update before the deadline.</p>
+
+    <div style="background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 16px; margin-bottom: 20px; border: 0.5px solid var(--color-border-tertiary);">
+      <div style="font-size: 11px; font-weight: 500; color: var(--color-text-tertiary); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 12px;">BIO 201 — Cell Biology (Section 04)</div>
+      <div style="display: flex; gap: 12px; align-items: flex-start;">
+        <div style="width: 44px; height: 56px; background: var(--color-border-tertiary); border-radius: 3px; flex-shrink: 0; display: flex; align-items: center; justify-content: center;">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="1" width="10" height="13" rx="1" stroke="var(--color-text-tertiary)" stroke-width="1"/><line x1="4" y1="5" x2="10" y2="5" stroke="var(--color-text-tertiary)" stroke-width="1"/><line x1="4" y1="8" x2="10" y2="8" stroke="var(--color-text-tertiary)" stroke-width="1"/><line x1="4" y1="11" x2="8" y2="11" stroke="var(--color-text-tertiary)" stroke-width="1"/></svg>
+        </div>
+        <div style="flex: 1;">
+          <div style="font-size: 14px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 2px;">Molecular Biology of the Cell</div>
+          <div style="font-size: 13px; color: var(--color-text-secondary); margin-bottom: 2px;">Alberts, Johnson, Lewis · 7th Edition</div>
+          <div style="font-size: 12px; color: var(--color-text-tertiary);">ISBN: 978-0-393-88482-1</div>
+        </div>
+        <div style="font-size: 11px; background: var(--color-background-success); color: var(--color-text-success); padding: 3px 8px; border-radius: var(--border-radius-md); white-space: nowrap; flex-shrink: 0;">ISBN verified</div>
+      </div>
+    </div>
+
+    <div style="display: flex; gap: 10px; margin-bottom: 24px; flex-wrap: wrap;">
+      <button onclick="showConfirmed()" style="padding: 10px 20px; font-size: 14px; font-weight: 500; background: var(--color-text-primary); color: var(--color-background-primary); border: none; border-radius: var(--border-radius-md); cursor: pointer;">Confirm these materials</button>
+      <button onclick="showSearch()" style="padding: 10px 20px; font-size: 14px; background: transparent; color: var(--color-text-primary); border: 0.5px solid var(--color-border-secondary); border-radius: var(--border-radius-md); cursor: pointer;">Select different materials</button>
+    </div>
+
+    <p style="font-size: 12px; color: var(--color-text-tertiary); margin: 0; line-height: 1.6;">Questions? Reply to this email or contact your McGraw Hill representative. If you did not expect this email, please disregard.</p>
+  </div>
+</div>
+
+<div id="view-search" style="display: none; background: var(--color-background-primary); border-radius: var(--border-radius-lg); border: 0.5px solid var(--color-border-tertiary); overflow: hidden;">
+  <div style="padding: 16px 20px; border-bottom: 0.5px solid var(--color-border-tertiary);">
+    <div style="font-size: 15px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 4px;">Select your course materials</div>
+    <div style="font-size: 13px; color: var(--color-text-secondary);">BIO 201 — Cell Biology (Section 04) · Fall 2026</div>
+  </div>
+  <div style="padding: 20px;">
+    <div style="display: flex; gap: 8px; margin-bottom: 16px;">
+      <input type="text" id="search-input" placeholder="Search by title, author, or ISBN..." style="flex: 1; padding: 9px 12px; font-size: 14px; border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-secondary);" oninput="handleSearch(this.value)" />
+    </div>
+    <div id="search-results" style="display: none;">
+      <div style="font-size: 11px; font-weight: 500; color: var(--color-text-tertiary); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 10px;">Results from McGraw Hill catalog</div>
+      <div onclick="selectResult(this)" data-title="Biology: The Essentials" data-author="Hoefnagels" data-edition="3rd Edition" data-isbn="978-1-260-16946-2" style="display: flex; justify-content: space-between; align-items: center; padding: 12px; border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-tertiary); margin-bottom: 8px; cursor: pointer;">
+        <div>
+          <div style="font-size: 14px; font-weight: 500; color: var(--color-text-primary);">Biology: The Essentials</div>
+          <div style="font-size: 13px; color: var(--color-text-secondary);">Hoefnagels · 3rd Edition · ISBN: 978-1-260-16946-2</div>
+        </div>
+        <div style="font-size: 11px; background: var(--color-background-success); color: var(--color-text-success); padding: 3px 8px; border-radius: var(--border-radius-md); white-space: nowrap; margin-left: 12px;">In catalog</div>
+      </div>
+      <div onclick="selectResult(this)" data-title="Concepts of Biology" data-author="Fowler, Roush, Wise" data-edition="2nd Edition" data-isbn="978-1-938168-40-5" style="display: flex; justify-content: space-between; align-items: center; padding: 12px; border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-tertiary); margin-bottom: 8px; cursor: pointer;">
+        <div>
+          <div style="font-size: 14px; font-weight: 500; color: var(--color-text-primary);">Concepts of Biology</div>
+          <div style="font-size: 13px; color: var(--color-text-secondary);">Fowler, Roush, Wise · 2nd Edition · ISBN: 978-1-938168-40-5</div>
+        </div>
+        <div style="font-size: 11px; background: var(--color-background-success); color: var(--color-text-success); padding: 3px 8px; border-radius: var(--border-radius-md); white-space: nowrap; margin-left: 12px;">In catalog</div>
+      </div>
+    </div>
+    <div id="empty-state" style="display: none; padding: 24px; text-align: center; border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md);">
+      <div style="font-size: 14px; color: var(--color-text-secondary); margin-bottom: 8px;">No results found for that search.</div>
+      <div style="font-size: 13px; color: var(--color-text-tertiary);">Reply to the original email and our team will help you locate the right materials.</div>
+    </div>
+    <div style="display: flex; gap: 10px; margin-top: 16px;">
+      <button onclick="showEmail()" style="padding: 9px 16px; font-size: 13px; background: transparent; color: var(--color-text-secondary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); cursor: pointer;">Back</button>
+    </div>
+  </div>
+</div>
+
+<div id="view-confirmed" style="display: none; background: var(--color-background-primary); border-radius: var(--border-radius-lg); border: 0.5px solid var(--color-border-tertiary); overflow: hidden;">
+  <div style="padding: 32px 24px; text-align: center;">
+    <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--color-background-success); display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 9l4 4 6-7" stroke="var(--color-text-success)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div style="font-size: 16px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 8px;">Adoption confirmed</div>
+    <div style="font-size: 13px; color: var(--color-text-secondary); margin-bottom: 24px;">Submitted April 2, 2026 at 8:17 AM · Confirmation #MH-2026-48821</div>
+
+    <div style="background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 16px; text-align: left; margin-bottom: 24px; border: 0.5px solid var(--color-border-tertiary);">
+      <div style="font-size: 11px; font-weight: 500; color: var(--color-text-tertiary); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 12px;">Confirmed selection</div>
+      <div style="font-size: 14px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 3px;" id="confirmed-title">Molecular Biology of the Cell</div>
+      <div style="font-size: 13px; color: var(--color-text-secondary); margin-bottom: 3px;" id="confirmed-author">Alberts, Johnson, Lewis · 7th Edition</div>
+      <div style="font-size: 12px; color: var(--color-text-tertiary); margin-bottom: 12px;" id="confirmed-isbn">ISBN: 978-0-393-88482-1</div>
+      <div style="border-top: 0.5px solid var(--color-border-tertiary); padding-top: 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+        <div><div style="font-size: 11px; color: var(--color-text-tertiary);">Course</div><div style="font-size: 13px; color: var(--color-text-primary);">BIO 201 · Section 04</div></div>
+        <div><div style="font-size: 11px; color: var(--color-text-tertiary);">Term</div><div style="font-size: 13px; color: var(--color-text-primary);">Fall 2026</div></div>
+        <div><div style="font-size: 11px; color: var(--color-text-tertiary);">Faculty</div><div style="font-size: 13px; color: var(--color-text-primary);">Dr. Sarah Chen</div></div>
+        <div><div style="font-size: 11px; color: var(--color-text-tertiary);">Sent to</div><div style="font-size: 13px; color: var(--color-text-primary);">Bookstore + Admin</div></div>
+      </div>
+    </div>
+
+    <div style="font-size: 13px; color: var(--color-text-tertiary); line-height: 1.6;">A copy of this confirmation has been sent to sarah.chen@stateuniversity.edu.<br>Your bookstore and LMS administrator have been notified.</div>
+  </div>
+</div>
+
+</div>
+</div>
+
+<script>
+function showEmail() {
+  document.getElementById('view-email').style.display = 'block';
+  document.getElementById('view-search').style.display = 'none';
+  document.getElementById('view-confirmed').style.display = 'none';
+  document.getElementById('step-label').textContent = 'Step 1 of 3 — Confirmation email';
+  document.getElementById('progress-bar').style.width = '33%';
+}
+function showSearch() {
+  document.getElementById('view-email').style.display = 'none';
+  document.getElementById('view-search').style.display = 'block';
+  document.getElementById('view-confirmed').style.display = 'none';
+  document.getElementById('step-label').textContent = 'Step 2 of 3 — Select materials';
+  document.getElementById('progress-bar').style.width = '66%';
+}
+function showConfirmed() {
+  document.getElementById('view-email').style.display = 'none';
+  document.getElementById('view-search').style.display = 'none';
+  document.getElementById('view-confirmed').style.display = 'block';
+  document.getElementById('step-label').textContent = 'Step 3 of 3 — Confirmed';
+  document.getElementById('progress-bar').style.width = '100%';
+}
+function handleSearch(val) {
+  const results = document.getElementById('search-results');
+  const empty = document.getElementById('empty-state');
+  if (val.length < 2) { results.style.display = 'none'; empty.style.display = 'none'; return; }
+  const hasMatch = val.toLowerCase().includes('bio') || val.toLowerCase().includes('cell') || val.toLowerCase().includes('concept') || val.toLowerCase().includes('978') || val.toLowerCase().includes('mol');
+  results.style.display = hasMatch ? 'block' : 'none';
+  empty.style.display = hasMatch ? 'none' : 'block';
+}
+function selectResult(el) {
+  document.getElementById('confirmed-title').textContent = el.dataset.title;
+  document.getElementById('confirmed-author').textContent = el.dataset.author + ' · ' + el.dataset.edition;
+  document.getElementById('confirmed-isbn').textContent = 'ISBN: ' + el.dataset.isbn;
+  showConfirmed();
+}
+</script>
